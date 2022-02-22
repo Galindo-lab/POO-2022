@@ -33,22 +33,15 @@ public class Práctica2 {
         Vector<Computadora> listaComputadoras = new Vector<Computadora>();
 
         do {
-            System.out.println("Automovil ------");
-            System.out.println("  a) Capturar");
-            System.out.println("  b) Imprimir\n");
-            System.out.println("Cancion --------");
-            System.out.println("  c) Capturar");
-            System.out.println("  d) Imprimir\n");
-            System.out.println("Computadora ----");
-            System.out.println("  e) Capturar");
-            System.out.println("  f) Imprimir\n");
-            System.out.println("Contrato -------");
-            System.out.println("  g) Capturar");
-            System.out.println("  h) Imprimir\n");
-            System.out.println("Perro ----------");
-            System.out.println("  i) Capturar");
-            System.out.println("  j) Imprimir\n");
-            System.out.println("----------------\n");
+            System.out.println("Automovil ------+ Cancion --------");
+            System.out.println("  a) Capturar   |   c) Capturar");
+            System.out.println("  b) Imprimir   |   d) Imprimir");
+            System.out.println("Computadora ----+ Contrato -------");
+            System.out.println("  e) Capturar   |   g) Capturar");
+            System.out.println("  f) Imprimir   |   h) Imprimir");
+            System.out.println("Perro ----------+");
+            System.out.println("  i) Capturar   |");
+            System.out.println("----------------");
             System.out.println("  0) Salir");
 
             op = sc.next().charAt(0);

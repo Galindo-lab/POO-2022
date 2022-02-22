@@ -44,46 +44,6 @@ public class Cancion {
         this.lanzamiento = sc.next();
     }
 
-    public String getLanzamiento() {
-        return lanzamiento;
-    }
-
-    public void setLanzamiento(String lanzamiento) {
-        this.lanzamiento = lanzamiento;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Float getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(Float duracion) {
-        this.duracion = duracion;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
     @Override
     public String toString() {
         return "Cancion{" + "id=" + id + ", nombre=" + nombre + ", duracion=" + duracion + ", autor=" + autor + ", lanzamiento=" + lanzamiento + '}';

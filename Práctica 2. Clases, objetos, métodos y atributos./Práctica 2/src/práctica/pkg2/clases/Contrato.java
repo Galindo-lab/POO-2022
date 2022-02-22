@@ -49,45 +49,5 @@ public class Contrato {
         this.IVA = sc.nextFloat();
     }
 
-    public float getIVA() {
-        return IVA;
-    }
-
-    public void setIVA(float IVA) {
-        this.IVA = IVA;
-    }
-
-    public String getArrendador() {
-        return Arrendador;
-    }
-
-    public void setArrendador(String Arrendador) {
-        this.Arrendador = Arrendador;
-    }
-
-    public String getArrendatario() {
-        return Arrendatario;
-    }
-
-    public void setArrendatario(String Arrendatario) {
-        this.Arrendatario = Arrendatario;
-    }
-
-    public String getFecha() {
-        return Fecha;
-    }
-
-    public void setFecha(String Fecha) {
-        this.Fecha = Fecha;
-    }
-
-    public float getPago() {
-        return Pago;
-    }
-
-    public void setPago(float Pago) {
-        this.Pago = Pago;
-    }
-    
     
 }

@@ -1,0 +1,76 @@
+
+#+TITLE:  Práctica 1. Clases, objetos, métodos y atributos
+#+Author: Luis Eduardo Galindo Amaya
+#+email:  egalindo54@uabc.edu.mx
+
+#+DESCRIPTION:
+#+KEYWORDS: 
+#+LANGUAGE: es
+#+DATE: \today
+
+#+OPTIONS: \n:nil num:1 toc:nil title:nil
+
+#+LATEX_COMPILER: pdflatex
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:
+#+LATEX_HEADER: \usepackage[spanish]{babel}
+#+LATEX_HEADER: \usepackage{svg}
+
+#+BEGIN_EXPORT latex
+\begin{titlepage}
+\centering
+{\bfseries\LARGE Universidad Autonoma \par de Baja California \par}
+\vspace{1cm}
+{\scshape\Large Ingeniería en computación \par}
+\vspace{2cm}
+{\scshape\Huge Programación Orientada a Objetos (541) \par}
+\vspace{2cm}
+{\itshape\Large Práctica 2 \par}
+\vfill
+\begin{center}
+\includegraphics[width=4cm]{img/logo}
+\end{center}
+\vfill
+{\Large Autor: \par}
+{\Large Luis E. Galindo Amaya \par}
+{\Large 1274895 \par}
+\vfill
+{\Large \today \par}
+\end{titlepage}
+#+END_EXPORT
+
+
+* Proyecto En Github
+click en las listas para abrir directamente el archivo en el navegador. 
+
++ https://github.com/Galindo-lab/POO-2022
+  - [[https://github.com/Galindo-lab/POO-2022/blob/main/Pr%C3%A1ctica%202.%20Clases%2C%20objetos%2C%20m%C3%A9todos%20y%20atributos./Pr%C3%A1ctica%202/src/pr%C3%A1ctica/pkg2/Pr%C3%A1ctica2.java][Main.java]]
+    + [[https://github.com/Galindo-lab/POO-2022/blob/main/Pr%C3%A1ctica%202.%20Clases%2C%20objetos%2C%20m%C3%A9todos%20y%20atributos./Pr%C3%A1ctica%202/src/pr%C3%A1ctica/pkg2/clases/Automovil.java][Automovil.java]]
+    + [[https://github.com/Galindo-lab/POO-2022/blob/main/Pr%C3%A1ctica%202.%20Clases%2C%20objetos%2C%20m%C3%A9todos%20y%20atributos./Pr%C3%A1ctica%202/src/pr%C3%A1ctica/pkg2/clases/Cancion.java][Cancion.java]]
+    + [[https://github.com/Galindo-lab/POO-2022/blob/main/Pr%C3%A1ctica%202.%20Clases%2C%20objetos%2C%20m%C3%A9todos%20y%20atributos./Pr%C3%A1ctica%202/src/pr%C3%A1ctica/pkg2/clases/Computadora.java][Computadora.java]]
+    + [[https://github.com/Galindo-lab/POO-2022/blob/main/Pr%C3%A1ctica%202.%20Clases%2C%20objetos%2C%20m%C3%A9todos%20y%20atributos./Pr%C3%A1ctica%202/src/pr%C3%A1ctica/pkg2/clases/Contrato.java][Contrato.java]]
+    + [[https://github.com/Galindo-lab/POO-2022/blob/main/Pr%C3%A1ctica%202.%20Clases%2C%20objetos%2C%20m%C3%A9todos%20y%20atributos./Pr%C3%A1ctica%202/src/pr%C3%A1ctica/pkg2/clases/Perro.java][Perro.java]]
+
+* Capturas De Pantalla
+No añadí captura de cada opción del menú, son diez opciones y todas tienen la misma lógica detrás, utilice un vector para guardar los registros y un foreach para mostrar el contenido de cada uno.
+
+[[file:img/a-0.jpg]]
+[[file:img/a-1.jpg]]
+[[file:img/a-2.jpg]]
+[[file:img/a-3.jpg]]
+
+* Ejercicios Extras 
++ Ejercicio 1 :: Implementa una clase con un constructor privado y ve que sucede. 
+
+Si es private el contructor solo se puede acceder desde dentro de la clase, en mi programa de aproveche de esto para que no se contruyeran clases espesificamente con ese contructor.
+
++ Ejercicio 2 :: Haz un constructor con parámetros.
+
+[[file:img/E-1.png]]
+
++ Ejercicio 3 :: Haz un constructor con parámetros que usen los mismos nombres que los atributos de la clase, un método que imprima los valores de las clases y vea si los valores se asignaron correctamente.
+
+[[file:img/E-3.png]]
+
++ Ejercicio 4 :: Modifique el constructor que realizó en el último ejercicio agregando la palabra clave "this" y verifique si los resultados son diferentes.
+[[file:img/E-4.png]]

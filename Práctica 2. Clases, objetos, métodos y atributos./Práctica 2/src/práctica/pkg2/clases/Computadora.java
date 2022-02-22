@@ -45,53 +45,6 @@ public class Computadora {
         System.out.println("id: ");
         this.id = sc.nextInt();
         System.out.println("ram: ");
-        this.ram = sc.nextFloat();
     }
-    
-    
-    
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public String getProcesador() {
-        return procesador;
-    }
-
-    public void setProcesador(String procesador) {
-        this.procesador = procesador;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public float getRam() {
-        return ram;
-    }
-
-    public void setRam(float ram) {
-        this.ram = ram;
-    }
-
-    
-    
     
 }

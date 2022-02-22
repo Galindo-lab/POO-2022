@@ -49,43 +49,4 @@ public class Perro {
         this.Sexo = sc.next().charAt(0);
     }
     
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
-
-    public int getEdad() {
-        return Edad;
-    }
-
-    public void setEdad(int Edad) {
-        this.Edad = Edad;
-    }
-
-    public float getPeso() {
-        return Peso;
-    }
-
-    public void setPeso(float Peso) {
-        this.Peso = Peso;
-    }
-
-    public float getAltura() {
-        return Altura;
-    }
-
-    public void setAltura(float Altura) {
-        this.Altura = Altura;
-    }
-
-    public char getSexo() {
-        return Sexo;
-    }
-
-    public void setSexo(char Sexo) {
-        this.Sexo = Sexo;
-    }
 }
