@@ -1,0 +1,124 @@
+
+#+TITLE:  Práctica 1. Clases, objetos, métodos y atributos
+#+Author: Luis Eduardo Galindo Amaya
+#+email:  egalindo54@uabc.edu.mx
+
+#+DESCRIPTION:
+#+KEYWORDS: 
+#+LANGUAGE: es
+#+DATE: \today
+
+#+OPTIONS: \n:nil num:1 toc:nil title:nil
+
+#+LATEX_COMPILER: pdflatex
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:
+#+LATEX_HEADER: \usepackage[spanish]{babel}
+#+LATEX_HEADER: \usepackage{svg}
+
+#+BEGIN_EXPORT latex
+\begin{titlepage}
+\centering
+{\bfseries\LARGE Universidad Autonoma \par de Baja California \par}
+\vspace{1cm}
+{\scshape\Large Ingeniería en computación \par}
+\vspace{2cm}
+{\scshape\Huge Programación Orientada a Objetos(541) \par}
+\vspace{2cm}
+{\itshape\Large Práctica 1 \par}
+\vfill
+\begin{center}
+\includegraphics[width=4cm]{img/logo}
+\end{center}
+\vfill
+{\Large Autor: \par}
+{\Large Luis E. Galindo Amaya \par}
+{\Large 1274895 \par}
+\vfill
+{\Large \today \par}
+\end{titlepage}
+#+END_EXPORT
+
+* Ejercicio
+Tomando en cuenta el ejemplo anterior mostrado, modela 5 entidades mediante un diagrama de clases considerando 5 atributos y 3 métodos por cada entidad, además agrega como ejemplo 3 objetos por cada clase.
+
+#+BEGIN_SRC ditaa :file img/hello-world.png
+
++---------------------+
+| Perro          cGRE |
++---------------------+ +---------------------+ +---------------------+ +---------------------+
+| Nombre              | | Frida               | | Fionna              | | Bruno               |
+| Edad                | | 10 y                | | 2 y                 | | 5 y                 |
+| Peso                | | 29 k                | | 20 kg               | | 24 kg               |
+| Altura              | | 60 cm               | | 57 cm               | | 66 cm               |
+| Sexo                | | Femenino            | | Femenino            | | Masculino           |
+|---------------------| +---------------------+ +---------------------+ +---------------------+
+| Ladrar()            |
+| Dormir()            |
+| Jugar()             |
++---------------------+
+
++---------------------+
+| Teléfono       cGRE |
++---------------------+ +---------------------+ +---------------------+ +---------------------+
+| Marca               | | Xiaomi              | | Huawei              | | Samsung             |
+| Lanzamiento         | | 2019                | | 2020                | | 2018                |
+| largo               | | 162.5 mm            | | 161.9 mm            | | 151 mm              |
+| ancho               | | 74.8 mm             | | 76.4 mm             | | 71.8 mm             |
+| grosor              | | 8.6 mm              | | 8.8 mm              | | 7.9 mm              |
+|---------------------| +---------------------+ +---------------------+ +---------------------+
+| llamar()            |
+| enviar_mensaje()    |
+| ver_mapa()          |
++---------------------+
+
++---------------------+
+| Contrato       cGRE |
++---------------------+ +---------------------+ +---------------------+ +---------------------+
+| Arrendador          | | Jorge               | | José                | | Martín              |
+| Arrendatario        | | Fran                | | María               | | Mauricio            |
+| Fecha               | | Enero 12            | | Marzo 23            | | Mayo 15             |
+| Pago                | | $1000               | | $1500               | | $1000               |
+| IVA                 | | 16%                 | | 12%                 | | 17%                 |
+|---------------------| +---------------------+ +---------------------+ +---------------------+
+| pagar()             |
+| calcular_iva(int)   |
+| cancelar()          |
++---------------------+
+
++---------------------+
+| Canción        cGRE |
++---------------------+ +---------------------+ +---------------------+ +---------------------+
+| id                  | | 01                  | | 02                  | | 03                  |
+| nombre              | | Romeo               | | Lost Kitten         | | Loser               |
+| duración            | | 2:41                | | 3:16                | | 3:00                |
+| autor               | | Maniac              | | Metric              | | gezebelle gaburgably|
+| lanzamiento         | | 2022                | | 2020                | | 2019                |
+|---------------------| +---------------------+ +---------------------+ +---------------------+
+| reproducir()        |
+| detener()           |
+| pausar()            |
++---------------------+
+
++---------------------+
+| Automóvil      cGRE |
++---------------------+ +---------------------+ +---------------------+ +---------------------+
+| marca               | | Ford                | | GM                  | | Toyota              |
+| Año                 | | 2010                | | 1995                | | 2009                |
+| modelo              | | Figo                | | Tahoe               | | Corolla             |
+| color               | | rojo                | | azul                | | blanco              |
+| Fabricante          | | Ford México         | | Chevrolet           | | Toyota              |
+|---------------------| +---------------------+ +---------------------+ +---------------------+
+| acelerar()          |
+| frenar()            |
+| reversa()           |
++---------------------+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:img/hello-world.svg]]
+
+
+* Conclusiones
+Una de las metas de la práctica es sin duda entender el modelado de objetos, las entidades comparten propiedades comunes y son intercambiables por medio de sus propiedades más los valores de sus propiedades pueden ser diferentes, por lo tanto, podemos programar métodos para la estructura de la clase.
