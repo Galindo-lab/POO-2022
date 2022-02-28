@@ -20,6 +20,7 @@ public class Práctica3 {
     public static void main(String[] args) {
 
         Vector<Estudiante> registroEstudiantes = new Vector<>();
+        Estudiante captura = new Estudiante();
         Scanner sc = new Scanner(System.in);
         char op = ' ';
 
@@ -32,20 +33,26 @@ public class Práctica3 {
         do {
 
             System.out.println("Menú --------------\n");
-            System.out.println(" a. Capturar alumnos");
-            System.out.println(" b. Mostrar alumnos");
+            System.out.println(" a. Capturar Alumnos");
+            System.out.println(" b. Mostrar Alumnos");
             System.out.println(" c. Salir");
 
             op = sc.next().charAt(0);
             
             switch(op) {
                 case 'a':
+                    captura.asignarNombre(sc);
+                    registroEstudiantes.add(captura);
                     break;
                     
                 case 'b':
+                    registroEstudiantes.forEach((a) -> {
+                        System.out.println(a.toString());
+                    });
                     break;
                     
                 case 'c':
+                    System.out.println("hasta la proxima :)");
                     break;
                     
                 default:
