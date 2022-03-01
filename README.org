@@ -1,1 +1,4 @@
-* POO-2022
+* Programación Orientada a Objetos
+Portafolio de la materia POO de UABC 2022.
+
+

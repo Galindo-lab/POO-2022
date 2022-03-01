@@ -1,0 +1,262 @@
+
+#+Author: Luis Eduardo Galindo Amaya
+#+email:  egalindo54@uabc.edu.mx
+
+#+DESCRIPTION:
+#+KEYWORDS: 
+#+LANGUAGE: es
+#+DATE: \today
+
+#+OPTIONS: \n:nil num:1 toc:nil title:nil
+
+#+LATEX_COMPILER: pdflatex
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:
+#+LATEX_HEADER: \usepackage[spanish]{babel}
+#+LATEX_HEADER: \usepackage{svg}
+
+#+BEGIN_EXPORT latex
+\begin{titlepage}
+\centering
+{\bfseries\LARGE Universidad Autonoma \par de Baja California \par}
+\vspace{1cm}
+{\scshape\Large Ingeniería en computación \par}
+\vspace{2cm}
+{\scshape\Huge Programación Orientada a Objetos (541) \par}
+\vspace{2cm}
+{\itshape\Large Práctica 3 \par}
+\vfill
+\begin{center}
+\includegraphics[width=4cm]{img/logo}
+\end{center}
+\vfill
+{\Large Autor: \par}
+{\Large Luis E. Galindo Amaya \par}
+{\Large 1274895 \par}
+\vfill
+{\Large \today \par}
+\end{titlepage}
+#+END_EXPORT
+
+
+* Repo
+https://github.com/Galindo-lab/POO-2022/tree/main/Pr%C3%A1ctica%203/Pr%C3%A1ctica%203/src/pr%C3%A1ctica/pkg3
+
+* Diagrama
+#+BEGIN_SRC ditaa :file img/hello-world.png 
+
+ +-----------------+
+ | Estudante  cGRE | 
+ +-----------------+
+ | id              |
+ | nombre          |
+ | materia         |
+ | calificación    |
+ | estado          |
+ +-----------------+
+ | asignarNombre() |
+ | Estado()        |
+ | toString()      |
+ +-----------------+
+
+#+END_SRC
+
+#+attr_latex: :width 100px
+#+RESULTS:
+[[file:img/hello-world.png]]
+
+
+* Código
+
+** Main.java
+#+BEGIN_SRC java
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package práctica.pkg3;
+
+import java.util.Scanner;
+import java.util.Vector;
+
+/**
+ *
+ * @author galindo
+ */
+public class Práctica3 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+        Vector<Estudiante> registroEstudiantes = new Vector<>();
+        Estudiante captura = new Estudiante();
+        Scanner sc = new Scanner(System.in);
+        char op = ' ';
+
+        registroEstudiantes.add(new Estudiante("0", "Luis", "Historia", 60));
+        registroEstudiantes.add(new Estudiante("1", "Mario", "Matematicas", 95));
+        registroEstudiantes.add(new Estudiante("2", "Pedro", "Ciaencias", 76));
+        registroEstudiantes.add(new Estudiante("3", "Fransisco", "Calculo", 89));
+        registroEstudiantes.add(new Estudiante("4", "Aldo", "Quimica", 45));
+
+        do {
+
+            System.out.println("Menú --------------\n");
+            System.out.println(" a. Capturar Alumnos");
+            System.out.println(" b. Mostrar Alumnos");
+            System.out.println(" c. Salir");
+
+            op = sc.next().charAt(0);
+            
+            switch(op) {
+                case 'a':
+                    captura.asignarNombre(sc);
+                    registroEstudiantes.add(captura);
+                    break;
+                    
+                case 'b':
+                    registroEstudiantes.forEach((a) -> {
+                        System.out.println(a.toString());
+                    });
+                    break;
+                    
+                case 'c':
+                    System.out.println("hasta la proxima :)");
+                    break;
+                    
+                default:
+                    break;
+            }
+
+        } while (op != 'c');
+    }
+
+}
+#+END_SRC
+
+
+** Estudiante.java
+#+BEGIN_SRC java
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package práctica.pkg3;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author galindo
+ */
+public class Estudiante {
+    private String nombre;
+    private String id;
+    private String materia;
+    private String estado;
+    private float calificación;
+    
+    /* Constructores */
+
+    public Estudiante(String id, String nombre, String materia, float calificación) {
+        this.nombre = nombre;
+        this.id = id;
+        this.materia = materia;
+        this.calificación = calificación;
+        this.estado = this.Estado(calificación);
+    }
+    
+    public Estudiante() {
+        this.nombre = null;
+        this.id = null;
+        this.materia = null;
+        this.calificación = 0f;
+        this.estado = null;
+    }
+    
+    /* metodos */
+    
+    public void asignarNombre(Scanner sc) {
+        System.out.println("Estudiante {");
+        System.out.print("ID=");
+        this.id = sc.next();
+        System.out.print("Nombre=");
+        this.nombre = sc.next();
+        System.out.print("Materia=");
+        this.materia = sc.next();
+        System.out.print("Calificación=");
+        this.calificación = sc.nextFloat();
+        this.asignarEstado();
+    }
+    
+    private String Estado(float calificación) {
+        return (calificación >= 60 ? "Aprobado" : "reprobado");
+    }
+    
+    private String Estado() {
+        return Estado(this.calificación);
+    }
+    
+    public void asignarEstado() {
+        this.estado = this.Estado();
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" 
+                    + " id=" + id 
+                    + ", nombre=" + nombre 
+                    + ", materia=" + materia 
+                    + ", estado=" + estado 
+                    + ", calificaci\u00f3n=" + calificación 
+                + " }";
+    }
+
+    /* Getters y Setters */
+    
+    public String getNombre() {
+        return nombre;
+    }
+    
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public float getCalificación() {
+        return calificación;
+    }
+
+    public void setCalificación(float calificación) {
+        this.calificación = calificación;
+    }
+    
+}
+#+END_SRC

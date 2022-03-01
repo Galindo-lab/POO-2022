@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"práctica.pkg2.clases","l":"Automovil"},{"p":"práctica.pkg2.clases","l":"Cancion"},{"p":"práctica.pkg2.clases","l":"Computadora"},{"p":"práctica.pkg2.clases","l":"Contrato"},{"p":"práctica.pkg2.clases","l":"Perro"},{"p":"práctica.pkg2","l":"Práctica2"}]
