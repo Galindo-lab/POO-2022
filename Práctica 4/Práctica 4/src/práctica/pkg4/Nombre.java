@@ -20,6 +20,7 @@ public class Nombre {
     // IMPORTANT: se tienen que capturar los datos con nextLine.
     public Nombre(String nombre) {
         // https://stackoverflow.com/a/30220543
+        // Trim elimina espacios repetidos.
         String[] p = nombre.trim().split("\\s+");
         this.primerNombre = p[0];
         this.segundoNombre = p[1];
