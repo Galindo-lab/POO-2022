@@ -10,34 +10,35 @@ package práctica.pkg4;
  * @author galindo
  */
 public class Nombre {
+
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
     private String segundoApellido;
 
-    public Nombre(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido) {
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
+    //       BUG: Fragil 
+    // IMPORTANT: se tienen que capturar los datos con nextLine.
+    public Nombre(String nombre) {
+        // https://stackoverflow.com/a/30220543
+        String[] p = nombre.trim().split("\\s+");
+        this.primerNombre = p[0];
+        this.segundoNombre = p[1];
+        this.primerApellido = p[2];
+        this.segundoApellido = p[3];
     }
-    
-    // String 
 
+    // String 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nombre{primerNombre=").append(primerNombre);
-        sb.append(", segundoNombre=").append(segundoNombre);
-        sb.append(", primerApellido=").append(primerApellido);
-        sb.append(", segundoApellido=").append(segundoApellido);
-        sb.append('}');
-        return sb.toString();
+        return "Nombre{"
+                + "primerNombre=" + primerNombre
+                + ", segundoNombre=" + segundoNombre
+                + ", primerApellido=" + primerApellido
+                + ", segundoApellido=" + segundoApellido
+                + '}';
     }
-    
-    // Getters y Setters
-    
 
+    // Getters y Setters
     public String getPrimerNombre() {
         return primerNombre;
     }
@@ -69,6 +70,5 @@ public class Nombre {
     public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
     }
-    
-    
+
 }
