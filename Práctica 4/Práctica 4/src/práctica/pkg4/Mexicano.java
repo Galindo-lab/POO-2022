@@ -17,21 +17,25 @@ import java.util.Date;
 public class Mexicano {
 
     private Date fechaNacimiento;
-    Nombre nombre;
-    
+    private Nombre nombre;
+
+    // https://stackoverflow.com/a/28542328
     private static final DateFormat fecha = new SimpleDateFormat("dd.MM.yyyy");
 
-    
-    
-    public Mexicano(String fechaNacimiento) throws ParseException {
-        
-        
+    public Mexicano(String nombre, String fechaNacimiento) throws ParseException {
+        this.nombre = new Nombre(nombre);
         this.fechaNacimiento = Mexicano.fecha.parse(fechaNacimiento);
     }
 
-    
     /* Getters y Setters */
-    
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     public Nombre getNombre() {
         return nombre;
     }
@@ -40,12 +44,4 @@ public class Mexicano {
         this.nombre = nombre;
     }
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-    
 }
