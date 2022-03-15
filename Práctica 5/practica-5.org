@@ -1,0 +1,20 @@
+#+TITLE:    Practica 5
+#+SUBTITLE: Programación orientada a Objetos
+
+#+Author:   Luis Eduardo Galindo Amaya
+#+email:    egalindo54@uabc.edu.mx
+#+DATE:     [2022-03-14 lun]
+
+#+INCLUDE: "../0imports/portada.org" 
+#+OPTIONS: num:2
+#+TOC: headlines 2
+
+\pagebreak
+
+adsadsadassdasdghdjfhdkfhkjsaf
+dfds
+fsd
+gds
+f
+ds
+fas

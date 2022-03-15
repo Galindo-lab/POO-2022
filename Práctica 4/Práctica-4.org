@@ -1,0 +1,365 @@
+
+#+Author: Luis Eduardo Galindo Amaya
+#+email:  egalindo54@uabc.edu.mx
+
+#+DESCRIPTION:
+#+KEYWORDS: 
+#+LANGUAGE: es
+#+DATE: \today
+
+#+OPTIONS: \n:nil num:1 toc:nil title:nil
+
+#+LATEX_COMPILER: pdflatex
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS:
+#+LATEX_HEADER: \usepackage[spanish]{babel}
+#+LATEX_HEADER: \usepackage{svg}
+
+#+BEGIN_EXPORT latex
+\begin{titlepage}
+\centering
+{\bfseries\LARGE Universidad Autonoma \par de Baja California \par}
+\vspace{1cm}
+{\scshape\Large Ingeniería en computación \par}
+\vspace{2cm}
+{\scshape\Huge Programación Orientada a Objetos (541) \par}
+\vspace{2cm}
+{\itshape\Large Práctica 4 \par}
+\vfill
+\begin{center}
+\includegraphics[width=4cm]{img/logo}
+\end{center}
+\vfill
+{\Large Autor: \par}
+{\Large Luis E. Galindo Amaya \par}
+{\Large 1274895 \par}
+\vfill
+{\Large \today \par}
+\end{titlepage}
+#+END_EXPORT
+
+
+* Repo
+https://github.com/Galindo-lab/POO-2022/tree/main/Pr%C3%A1ctica%204/Pr%C3%A1ctica%204/src/pr%C3%A1ctica/pkg4
+
+* Imagenes
+[[file:img/1.png]]
+
+* Metodos de la Clase String
+|---+---------------------+----------------------------------------------|
+|   | Metodo              | Descripcion                                  |
+| / | <>                  | <>                                           |
+|---+---------------------+----------------------------------------------|
+|   | charAt              | Devuelve el caracter del                     |
+|   |                     | indice especificado                          |
+|   |                     |                                              |
+|   | compareTo           | Compara esta cadena con                      |
+|   |                     | el objeto informado                          |
+|   |                     |                                              |
+|   | compareTo           | Compara dos cadenas entre si                 |
+|   |                     |                                              |
+|   | compareToIgnoreCase | Compara dos cadenas entre                    |
+|   |                     | si pero ignora las mayusculas y minusculas   |
+|   |                     |                                              |
+|   | concat              | Une la cadena especificada al                |
+|   |                     | final de nuestra cadena                      |
+|   |                     |                                              |
+|   | copyValueOf         | Devuelve una cadena que representa           |
+|   |                     | la secuencia de caracteres en el Array       |
+|   |                     |                                              |
+|   | endsWith            | Chequea si la cadena termina con el          |
+|   |                     | sufijo especificado                          |
+|   |                     |                                              |
+|   | equals              | Compara la cadena con el objeto especificado |
+|   |                     |                                              |
+|   | equalsIgnoreCase    | Compara la cadena con la cadena informada    |
+|   |                     | pero ignora las mayusculas y minusculas      |
+|   |                     |                                              |
+|   | getBytes            | Codifica la cadena en una secuencia de bytes |
+|   |                     | usando la charset por defecto.               |
+|   |                     |                                              |
+|---+---------------------+----------------------------------------------|
+
+\pagebreak
+
+* Diagramas
+#+BEGIN_SRC ditaa :file img/uml.png :cmdline -r
+      
+    +-------------------+            +---------------------+
+    | Nombre            |            | Mexicano            |
+    +-------------------+            +---------------------+
+    | ¬ PrimerNombre    |     +----->| ¬ Nombre            |
+    | ¬ SegundoNombre   |     |      | ¬ EntidadNacimiento |
+    | ¬ PrimerApellido  |o----+      | ¬ FechaNacimiento   |
+    | ¬ SegundoApellido |            | ¬ Genero            |
+    |-------------------|            | ¬ Estatus           |
+    | + toString        |            |---------------------|
+    +-------------------+            | + toString          |
+                                     +---------------------+
+
+
+    +---------------------+
+    | CURP                |
+    +---------------------+         +---------------------+
+    |                     |         | RFC                 |
+    |---------------------|         +---------------------+
+    | + Generar(Mexicano) |         |                     |
+    +---------------------+         |---------------------|
+                                    | + Generar(Mexicano) |
+                                    +---------------------+
+#+END_SRC
+
+#+RESULTS:
+[[file:img/uml.png]]
+
+* Código
+
+#+BEGIN_SRC 
+package práctica.pkg4;
+
+import java.text.ParseException;
+import java.util.Scanner;
+
+/**
+ *
+ * @author galindo
+ */
+public class Práctica4 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws ParseException {
+        // TODO code application logic here
+        Scanner sc = new Scanner(System.in);
+        char op;
+        
+        Mexicano m = new Mexicano(sc);
+        
+        do{
+            System.out.println(" 1. Capurar");
+            System.out.println(" 2. CURP ");
+            System.out.println(" 3. RFC");
+            System.out.println(" 4. Informacion");
+            System.out.println("-----------------");
+            System.out.println(" 0. salir");
+            
+            op = sc.next().charAt(0);
+            
+            switch(op) {
+                case '1':
+                    m = new Mexicano(sc);
+                    break;
+                    
+                case '2':
+                    System.out.println(Curp.generar(m));
+                    break; 
+                    
+                case '3':
+                    System.out.println(RFC.generar(m));
+                    break;
+                   
+                case '4':
+                    System.out.println(m.toString());
+                    break;
+            }
+            
+        }while(op != '0');
+        
+    }
+    
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package práctica.pkg4;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ *
+ * @author galindo
+ */
+public class Mexicano {
+
+    private Date fechaNacimiento;
+    private Nombre nombre;
+    private String entidadNacimiento;
+    private char genero;
+    private String estatus;
+
+    // https://stackoverflow.com/a/28542328
+    private static final DateFormat fecha = new SimpleDateFormat("dd.MM.yyyy");
+
+    public Mexicano(String nombre,char genero, String fechaNacimiento, String entidad, String estatus) throws ParseException {
+        this.nombre = new Nombre(nombre);
+        this.genero = genero;
+        this.entidadNacimiento = entidad;
+        this.fechaNacimiento = Mexicano.fecha.parse(fechaNacimiento);
+        this.estatus = estatus;
+    }
+    
+    public Mexicano(Scanner sc) throws ParseException {
+        System.out.print("nombre: ");
+        this.nombre = new Nombre(sc.nextLine());
+        System.out.print("genero (H/M): ");
+        this.genero = sc.next().charAt(0);
+        System.out.print("Entidad: ");
+        this.entidadNacimiento = sc.nextLine();
+        System.out.print("fecha de nacimiento (dd.MM.YYYY): ");
+        this.fechaNacimiento = Mexicano.fecha.parse(sc.nextLine());
+        System.out.print("Estatus migratorio: ");
+        this.estatus = sc.nextLine();
+    }
+
+    @Override
+    public String toString() {
+        return "Mexicano{" 
+                + "fechaNacimiento=" + fechaNacimiento
+                + ", nombre=" + nombre 
+                + ", entidadNacimiento=" + entidadNacimiento 
+                + ", genero=" + genero 
+                + ", estatus=" + estatus 
+                + '}';
+    }
+
+    
+    
+
+    /* Getters y Setters */
+    public char getGenero() {
+        return genero;
+    }
+
+    public void setGenero(char genero) {
+        this.genero = genero;
+    }
+
+    public String getEntidadNacimiento() {
+        return entidadNacimiento;
+    }
+
+    public void setEntidadNacimiento(String entidadNacimiento) {
+        this.entidadNacimiento = entidadNacimiento;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Nombre getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(Nombre nombre) {
+        this.nombre = nombre;
+    }
+
+
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package práctica.pkg4;
+
+import java.util.Date;
+
+/**
+ *
+ * @author galindo
+ */
+public class Curp {
+
+    // Funciones
+    private static boolean vocal(char foo) {
+        return "aeiouAEIOU".indexOf(foo) != -1;
+    }
+
+    private static char primeraVocal(String foo) {
+        for (char c : foo.toCharArray()) {
+            if (vocal(c)) {
+                return c;
+            }
+        }
+
+        return ' ';
+    }
+
+    private static char segundaConsonante(String foo) {
+        String bar = foo.substring(1);
+        for (char c : foo.toCharArray()) {
+            if (!vocal(c)) {
+                return c;
+            }
+        }
+
+        return ' ';
+
+    }
+
+    public static String generar(Mexicano foo) {
+        Nombre nombre = foo.getNombre();
+        char genero = foo.getGenero();
+        Date fecha = foo.getFechaNacimiento();
+        String entidad = foo.getEntidadNacimiento();
+
+        // primer apellido
+        char primerLetraP = nombre.getPrimerApellido().charAt(0);
+        char primerVocalP = primeraVocal(nombre.getPrimerApellido());
+
+        //segundo apellido 
+        char primerLetraS = nombre.getSegundoApellido().charAt(0);
+
+        // nombre
+        char primerLetraN = nombre.getPrimerNombre().charAt(0);
+
+        // fecha
+        int año = fecha.getYear();
+        int mes = fecha.getMonth() + 1;
+        int dia = fecha.getDate();
+
+        // 
+        char segundaConsonanteP = segundaConsonante(nombre.getPrimerApellido());
+        char segundaConsonanteS = segundaConsonante(nombre.getSegundoApellido());
+        char segundaConsonanteN = segundaConsonante(nombre.getPrimerNombre());
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(primerLetraP);
+        sb.append(primerVocalP);
+        sb.append(primerLetraS);
+        sb.append(primerLetraN);
+        sb.append(String.format("%02d%02d%02d", año, mes, dia));
+        sb.append(genero);
+        sb.append(entidad);
+        sb.append(segundaConsonanteP);
+        sb.append(segundaConsonanteS);
+        sb.append(segundaConsonanteN);
+        sb.append("00");
+
+        return sb.toString().toUpperCase();
+
+    }
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package práctica.pkg4;
+
+public class RFC {
+    
+    public static String generar(Mexicano foo) {
+        return Curp.generar(foo).substring(0, 10);
+    }
+}
+
+#+END_SRC
