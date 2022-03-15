@@ -69,7 +69,7 @@ public class Práctica5 {
                     break;
             }
 
-        } while (op != '0');
+        } while (op != 0);
 
     }
 
