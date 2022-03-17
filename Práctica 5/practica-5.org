@@ -9,12 +9,439 @@
 #+OPTIONS: num:2
 #+TOC: headlines 2
 
+#+BEGIN_CENTER
+\vfill
+Link Practica: https://n9.cl/xsvb2
 \pagebreak
+#+END_CENTER
 
-adsadsadassdasdghdjfhdkfhkjsaf
-dfds
-fsd
-gds
-f
-ds
-fas
+* Diagrama UML
+[[file:img/UML.svg]]
+
+* Capturas
+[[file:img/1.png]]
+[[file:img/2.png]]
+[[file:img/3.png]]
+
+* Código
+** Main
+#+BEGIN_SRC java
+package práctica.pkg5;
+
+import banco.Banco;
+import banco.Cuenta;
+import java.util.Scanner;
+
+/**
+ *
+ * @author galindo
+ */
+public class Práctica5 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int op;
+
+        Banco banco = new Banco();
+
+        do {
+            System.out.println("        *** Menu ***       ");
+            System.out.println(" - 1: Crear cuenta.        ");
+            System.out.println(" - 2: Acceder a una cuenta.");
+            System.out.println(" - 3: Retirar.             ");
+            System.out.println(" - 4: Depositar.           ");
+            System.out.println(" - 5: Cerrar sesion. ");
+            System.out.println(" --------------------------");
+            System.out.println(" - 0: Salir \n");
+
+            op = CapturaEntrada.capturaInt("Operacion");
+
+            switch (op) {
+                case 1:
+                    banco.registrarCuenta(
+                            CapturaEntrada.capturaCuenta()
+                    );
+                    break;
+
+                case 2:
+                    if(banco.iniciarSesion(
+                            CapturaEntrada.capturaString("Numero de cuenta"),
+                            CapturaEntrada.capturaString("Nip")
+                    ))
+                            
+                    break;
+
+                case 3:
+                    banco.retirar(
+                            CapturaEntrada.capturaFloat("Retiro")
+                    );
+                    break;
+
+                case 4:
+                    banco.depositar(
+                            CapturaEntrada.capturaFloat("Deposito")
+                    );
+                    break;
+                    
+                case 5:
+                    banco.cerrarSesion();
+                    break;
+            }
+
+        } while (op != '0');
+
+    }
+
+}
+#+END_SRC
+
+** CapturaEntrada
+#+BEGIN_SRC java
+package práctica.pkg5;
+
+import banco.Cuenta;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+/**
+ *
+ * @author galindo
+ */
+public class CapturaEntrada {
+    
+    private static final DateFormat formato = new SimpleDateFormat("dd.MM.yyyy");
+    
+    public static Date capturaDate(String msg) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(msg + "(dd.MM.yyy): ");
+        return CapturaEntrada.formato.parse(sc.nextLine());
+    }
+    
+    public static String capturaString(String msg) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(msg + ": ");
+        return sc.nextLine();
+    }
+    
+    public static int capturaInt(String msg) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(msg + ": ");
+        return sc.nextInt();
+    }
+    
+    public static float capturaFloat(String msg) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(msg + ": ");
+        return sc.nextFloat();
+    }
+    
+    public static Cuenta capturaCuenta() {        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("*** Crear cuenta ***");
+        return new Cuenta(
+                capturaString("Nombre"),
+                capturaString("Direccion"),
+                capturaString("Nip")
+        );
+    }
+}
+#+END_SRC
+
+** Banco
+#+BEGIN_SRC java
+package banco;
+
+import java.util.Vector;
+import java.util.stream.IntStream;
+
+/**
+ *
+ * @author galindo
+ */
+public class Banco {
+
+    // Constantes
+    public final static int INVALID_IDENTIFIER = -1;
+    public final static int SESSION_ACTIVE = 1;
+    public final static int SESSION_INACTIVE = 0;
+
+    // lista de cuentas 
+    private Vector<Cuenta> cuentas = new Vector<>();
+
+    // identificador de seccion 
+    private int idSesion;
+
+    public void mostrarCuentas() {
+        cuentas.forEach(a -> System.out.println(a.toString()));
+    }
+
+    public void registrarCuenta(Cuenta foo) {
+        cuentas.add(foo);
+    }
+
+    public int VerificarCuenta(String foo) {
+        // https://stackoverflow.com/a/60006562
+        return IntStream.range(0, this.cuentas.size())
+                .filter(i -> this.cuentas.get(i).getNumeroCuenta().equals(foo))
+                .findFirst()
+                .orElse(Banco.INVALID_IDENTIFIER);
+    }
+
+    public Cuenta datosCuenta() {
+        return this.cuentas.get(this.getIdSesion());
+    }
+
+    public boolean iniciarSesion(String foo, String nip) {
+        this.setIdSesion(this.VerificarCuenta(foo));
+        if (this.getIdSesion() == Banco.INVALID_IDENTIFIER) return false;
+        if (this.datosCuenta().getNip().equals(nip)) {
+            System.out.println("Bienvenido " + this.datosCuenta().getUsuario());
+            System.out.println("Estado de cuenta: " + this.datosCuenta().getSaldo());
+        }
+
+        return true;
+    }
+
+    public boolean cerrarSesion() {
+        this.setIdSesion(Banco.INVALID_IDENTIFIER);
+        System.out.println("Exito!!");
+        return true;
+    }
+
+    public boolean depositar(float saldo) {
+        if (this.getSessionStatus() != Banco.SESSION_ACTIVE) return false;
+        System.out.println("Exito!!");
+        return this.cuentas.get(this.idSesion).depositar(saldo);
+    }
+
+    public boolean retirar(float saldo) {
+        if (this.getSessionStatus() != Banco.SESSION_ACTIVE) return false;
+        System.out.println("Exito!!");
+        return this.cuentas.get(this.idSesion).retirar(saldo);
+    }
+
+    public int getSessionStatus() {
+        if (this.getIdSesion() == Banco.INVALID_IDENTIFIER) return Banco.SESSION_INACTIVE;
+        return Banco.SESSION_ACTIVE;
+    }
+
+    public int getIdSesion() {
+        return idSesion;
+    }
+
+    public void setIdSesion(int idSesion) {
+        this.idSesion = idSesion;
+    }
+
+}
+#+END_SRC
+
+** Cuenta
+#+BEGIN_SRC java
+package banco;
+
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ *
+ * @author galindo
+ */
+public class Cuenta {
+
+    // identificador de instancia
+    private static int id = 0;
+
+    // ingresados por el usuario
+    private final String usuario;
+    private String direccion;
+    private String nip;
+
+    // autogenerado
+    private Date fechaVencimiento;
+    private final String numeroCuenta;
+
+    // inicializado
+    private float saldo;
+
+    public Cuenta(String usuario, String direccion, String nip) {
+        this.usuario = usuario;
+        this.direccion = direccion;
+        this.nip = nip;
+
+        this.fechaVencimiento = calcFechaVenciamiento();
+        // el numero de instancia es el numero de cuenta, este es constante
+        
+        this.numeroCuenta = Integer.toString(id++);
+        this.saldo = 0f;
+    }
+
+    private static Date calcFechaVenciamiento() {
+        // https://stackoverflow.com/a/16392922
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, 4);
+        return cal.getTime();
+    }
+
+    public boolean depositar(float saldo) {
+        this.saldo += saldo;
+        return true;
+    }
+
+    public boolean retirar(float saldo) {
+        if (this.saldo - saldo < 0) return false;
+        this.saldo -= saldo;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Cuenta{" 
+                + "usuario=" + usuario 
+                + ", direccion=" + direccion 
+                + ", nip=" + nip 
+                + ", fechaVencimiento=" + fechaVencimiento 
+                + ", numeroCuenta=" + numeroCuenta 
+                + ", saldo=" + saldo 
+            + '}';
+    }
+
+    
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+    public void updateFechaVencimiento() {
+        this.fechaVencimiento = calcFechaVenciamiento();
+    }
+
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public String getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public float getSaldo() {
+        return saldo;
+    }
+    
+    
+
+}
+#+END_SRC
+
+* Console Log
+#+BEGIN_SRC 
+run:
+        *** Menu ***       
+ - 1: Crear cuenta.        
+ - 2: Acceder a una cuenta.
+ - 3: Retirar.             
+ - 4: Depositar.           
+ - 5: Cerrar sesion. 
+ --------------------------
+ - 0: Salir 
+
+Operacion: 1
+*** Crear cuenta ***
+Nombre: luis eduardo galindo
+Direccion: aaaaaaaa
+Nip: 123123
+        *** Menu ***       
+ - 1: Crear cuenta.        
+ - 2: Acceder a una cuenta.
+ - 3: Retirar.             
+ - 4: Depositar.           
+ - 5: Cerrar sesion. 
+ --------------------------
+ - 0: Salir 
+
+Operacion: 2
+Numero de cuenta: 0
+Nip: 123123
+Bienvenido luis eduardo galindo
+Estado de cuenta: 0.0
+        *** Menu ***       
+ - 1: Crear cuenta.        
+ - 2: Acceder a una cuenta.
+ - 3: Retirar.             
+ - 4: Depositar.           
+ - 5: Cerrar sesion. 
+ --------------------------
+ - 0: Salir 
+
+Operacion: 4
+Deposito: 
+1000
+Exito!!
+        *** Menu ***       
+ - 1: Crear cuenta.        
+ - 2: Acceder a una cuenta.
+ - 3: Retirar.             
+ - 4: Depositar.           
+ - 5: Cerrar sesion. 
+ --------------------------
+ - 0: Salir 
+
+Operacion: 3
+Retiro: 
+123
+Exito!!
+        *** Menu ***       
+ - 1: Crear cuenta.        
+ - 2: Acceder a una cuenta.
+ - 3: Retirar.             
+ - 4: Depositar.           
+ - 5: Cerrar sesion. 
+ --------------------------
+ - 0: Salir 
+
+Operacion: 5
+Exito!!
+        *** Menu ***       
+ - 1: Crear cuenta.        
+ - 2: Acceder a una cuenta.
+ - 3: Retirar.             
+ - 4: Depositar.           
+ - 5: Cerrar sesion. 
+ --------------------------
+ - 0: Salir 
+
+Operacion: 0
+        *** Menu ***       
+ - 1: Crear cuenta.        
+ - 2: Acceder a una cuenta.
+ - 3: Retirar.             
+ - 4: Depositar.           
+ - 5: Cerrar sesion. 
+ --------------------------
+ - 0: Salir 
+
+Operacion: 
+#+END_SRC
