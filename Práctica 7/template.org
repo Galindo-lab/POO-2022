@@ -1,0 +1,86 @@
+#+TITLE:    Práctica 7
+#+SUBTITLE: Arreglos y Herencia en Java
+
+#+Author:   Luis Eduardo Galindo Amaya
+#+email:    egalindo54@uabc.edu.mx
+#+DATE:     [2022-03-28 lun]
+
+#+INCLUDE: "../0imports/portada.org" 
+#+INCLUDE: "../0imports/codigo.org" 
+
+#+OPTIONS: num:nil
+# #+TOC: headlines 2
+
+* Práctica 7. Arreglos y Herencia en Java
+- Piense en las características generales que tendrían los personajes del videojuego “Angry Birds” e implemente una clase padre llamada Bird. Considere qué tipo de atributos y métodos debería tener.
+- Crea 3 instancias de 'Bird' y organícelos en un arreglo.
+- Implementa subclases para los diferentes personajes considerando sus ataques. Los métodos de ataque deberán simplemente imprimir un mensaje en la consola, por ejemplo:
+  + El pájaro Blue atacó y se dividió en tres.
+  + El pájaro Chuck atacó y se hizo más veloz.
+- Considera utilizar los métodos getNombre para accesar al nombre de cada instancia generada.
+- Haga un programa para probar sus clases. Tenga en cuenta que las subclases pueden usar tanto sus propios métodos cómo los métodos de su superclase.
+- Realiza el diagrama de clases de la solución que implementaste a este problema.
+
+\pagebreak
+
+* Diagrama de clases
+#+begin_src plantuml :file img/actividad-4.png :exports results
+skinparam classAttributeIconSize 0
+
+class Bird {
+  - peso : float
+  - size : float
+  - nombre : String
+  
+  + getPeso() : float
+  + setPeso(float) : void
+  + getSize() : float
+  + setSize(float) : void
+  + getNombre() : string
+  + setNombre(string) : void
+
+}
+
+class Red {
+  + ataque() : void
+}
+
+class Blue {
+  + ataque() : void
+}
+
+class Chuck {
+  - velocidad : float
+  + setVelocidad(float) : void
+  + getVelocidad(float) : float
+  + ataque() : void
+}
+
+class Bomb {
+  + explosion : float
+  + ataque() : void
+  + setExplosion(float) : void
+  + getExplosion(float) : float
+}
+
+Bird <|- Red 
+Bird <|- Blue
+Bird <|- Chuck 
+Bird <|- Bomb 
+#+end_src
+
+#+RESULTS:
+[[file:img/actividad-4.png]]
+
+* Programa
+#+BEGIN_EXPORT latex
+\lstinputlisting[caption=Bird.py]{./codigo/Bird.py}
+\pagebreak
+\lstinputlisting[caption=Subclases.py]{./codigo/Subclases.py}
+\pagebreak
+\lstinputlisting[caption=main.py]{./codigo/main.py}
+#+END_EXPORT
+
+* Ejecución
+[[file:img/a.png]]
+

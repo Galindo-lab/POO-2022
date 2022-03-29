@@ -1,17 +1,182 @@
-#+TITLE:    Practica 5
-#+SUBTITLE: Programación orientada a Objetos
+#+TITLE:    Practica 6
+#+SUBTITLE: Herencia: UML
 
 #+Author:   Luis Eduardo Galindo Amaya
 #+email:    egalindo54@uabc.edu.mx
-#+DATE:     [2022-03-14 lun]
+#+DATE:     [2022-03-17 jue]
 
 #+INCLUDE: "../0imports/portada.org" 
-#+OPTIONS: num:2
-#+TOC: headlines 2
+#+OPTIONS: num:nil
+# #+TOC: headlines 2
 
-#+BEGIN_CENTER
-\vfill
-Link Practica: 
+
+* Actividad 1
+Una compañía editorial produce libros impresos y audio libros en discos compactos. Diseñe una clase denominada Publicación que almacene el título (cadena) y el precio (flotante) de una publicación. A partir de esta clase, derive dos clases: Libro a la cual le agregue el número de páginas (entero) y CD, a la cual le agregue el tiempo de reproducción en minutos(numérico flotante).
+
+** Diagrama
+[[file:img/diagrama-1.svg]]
+
 \pagebreak
-#+END_CENTER
 
+* Actividad 2
+Una agencia de autos desea un sistema computacional para administrar los datos de sus vehículos y clasificarlos por tipo. Todos los autos tienen los siguientes datos:
+
+- Número de serie del motor.
+- Marca.
+- Año.
+- Precio.
+
+Los vehículos se clasifican en autos compactos, autos de lujo, camionetas y vagonetas. Para los autos y vagonetas, también es importante almacenar la cantidad de pasajeros; mientras que para las camionetas se debe controlar la capacidad de carga en kgs. y la cantidad de ejes y de rodadas.
+
+#+ATTR_LATEX: :width 7cm
+[[file:img/Diagrama-2.svg]]
+
+\pagebreak
+
+* Actividad 3 
+Un equipo de futbol debe controlar las estadísticas de sus jugadores. Los datos de cada jugador son el número de uniforme, nombre y su posición (portero, defensa, medio y delantero). Además, el equipo desea almacenar la cantidad de goles anotados por cada jugador (excepto el portero) y los minutos jugados [fn:cambio].
+
+#+begin_src plantuml :file img/actividad-3.png :exports results
+skinparam classAttributeIconSize 0
+
+abstract class IntegranteEquipo {
+  - numero : int
+  - nombre : String
+  - Posición : String
+
+  + getNumero() : int
+  + getNombre() : String
+  + getPosición() : String
+  + setNumero(int) : void
+  + setNombre(String) : void
+  + setPosición(String) : void
+}
+
+class Jugador {
+  - golesAnotados : int
+
+  + getGolesAnotados() : int
+  + setGolesAnotados(int) : void
+}
+
+class Portero {
+  - golesParados : int
+  + getGolesParados() : int
+  + setGolesParados(int) : void
+}
+
+Jugador <|- IntegranteEquipo
+Portero <|- IntegranteEquipo
+
+#+end_src
+
+#+RESULTS:
+[[file:img/actividad-3.png]]
+
+[fn:cambio] Encontre una herramienta que me gusta más, para hacer los UML.
+
+* Actividad 4
+Para una empresa es importante controlar los datos de las personas relacionadas a ella, como lo son sus clientes y sus empleados. Los datos de cada persona son el nombre y su domicilio; sin embargo, también es importante administrar el límite de crédito de sus clientes y el salario de sus empleados.
+
+#+begin_src plantuml :file img/actividad-4.png :exports results
+skinparam classAttributeIconSize 0
+
+abstract class Persona {
+  - nombre : String
+  - domicilio : String
+  
+  + setNombre(String) : void
+  + getNombre() : String
+}
+
+class Empleado {
+  - salario : float
+
+  + getSalario() : float
+  + setSalario(float) : void
+}
+
+class Cliente {
+  - credito : float
+  - maxCredito : float
+
+  + getCredito() : float
+  + setCredito(float) : void
+  + getMaxCredito() : float
+  + setMaxCredito(float) : void
+}
+
+Empleado <|- Persona
+Cliente <|- Persona
+#+end_src
+
+#+RESULTS:
+[[file:img/actividad-4.png]]
+
+\pagebreak
+
+* Actividad 5
+Crear un diagrama de clases UML representar el sistema de una biblioteca la cual cuenta con libros, revistas, tesis, e historietas. Considerar que cada elemento que hay en la biblioteca cuenta con un título, autor, idioma, año y ubicación en la biblioteca. Los libros cuentan con un número de edición y editorial. Las tesis cuentan con año de publicación y área de investigación. Las revistas e historietas cuentan con un género.
+
+#+begin_src plantuml :file img/actividad-5.png :exports results
+skinparam classAttributeIconSize 0
+
+abstract class RegistroBibloteca {
+  - título : String
+  - autor : String
+  - idioma : String
+  - año : Date
+  - ubicación : String
+  
+  + getAutor() : String
+  + setAutor(String) : void
+  + getTitulo() : String
+  + setTitulo(String) : void
+  + getIdioma() : String
+  + setIdioma(String) : void
+  + getAño() : Date
+  + setAño(Date) : void
+  + getUbicacion() : String
+  + setUbicacion(String) : void
+}
+
+class Libro {
+  - numeroEdición : int
+  - editorial : String
+
+  + getNumeroEdición() : int
+  + setNumeroEdición() : void
+  + getEditorial() : String
+  + setEditorial(String) : void
+}
+
+class Revista {
+  - género : String 
+  
+  + getGénero() : String
+  + setGénero(String) : void
+}
+
+class Tesis {
+  - áreaInvestigacion : String
+
+  + getÁreaInvestigacion() : String
+  + setÁreaINvestigacion(String) : void
+}
+
+class Historieta {
+  - género : String 
+
+  + getGénero() : String
+  + setGénero(String) : void
+}
+
+Libro <|- RegistroBibloteca
+Revista <|- RegistroBibloteca
+Tesis <|- RegistroBibloteca
+Historieta <|- RegistroBibloteca
+
+#+end_src
+
+#+RESULTS:
+[[file:img/actividad-5.png]]
