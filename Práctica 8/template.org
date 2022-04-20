@@ -1,0 +1,30 @@
+#+TITLE:    Práctica 8
+#+SUBTITLE: Relaciones Entre Clases
+
+#+Author:   Luis Eduardo Galindo Amaya
+#+email:    egalindo54@uabc.edu.mx
+#+DATE:     [2022-04-19 mar]
+
+#+INCLUDE: "../0imports/portada.org" 
+#+INCLUDE: "../0imports/codigo.org" 
+
+#+OPTIONS: num:nil
+# #+TOC: headlines 2
+
+* Fotos 
+[[file:img/2.png]]
+
+* Link
+https://github.com/Galindo-lab/POO-2022/tree/main/Pr%C3%A1ctica%208
+
+* Código
+#+BEGIN_EXPORT latex
+\lstinputlisting[caption=main.py]{./src/Equipo.py}
+\lstinputlisting[caption=Equipo.py]{./src/Equipo.py}
+\lstinputlisting[caption=Jugador.py]{./src/Jugador.py}
+\lstinputlisting[caption=Torneo.py]{./src/Torneo.py}
+#+END_EXPORT
+
+* UML
+#+attr_latex: :width 150px
+[[file:img/uml.png]]

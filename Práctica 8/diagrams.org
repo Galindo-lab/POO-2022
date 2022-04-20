@@ -1,0 +1,43 @@
+#+begin_src plantuml :file img/uml.png :exports results
+!theme plain
+skinparam classAttributeIconSize 0
+
+class Equipo {
+- nombre : String
+- división : String
+- entrenador : String
+- torneos_ganados : Integer
+- torneos_perdidos : Integer
+- jugadores : List<Jugador> 
+
++ agregar_jugador(jugador) : void
++ jugadores_registrados() : Integer
++ goles_totales() : Integer
+}
+
+class Jugador {
+- numero_uniforme : Integer
+- nombre : String
+- puntos_anotados : Integer
+- posición : float
+- estatura : float
+}
+
+class Torneo {
+- nombre : String
+- región : String
+- equipos_participantes : List<Equipo>
+- partidos_jugados : Integer
+- partidos_pendientes : Integer
+
++ agregar_equipo(equipo) : void
+}
+
+Jugador <--* Equipo
+Equipo <--* Torneo
+
+
+#+end_src
+
+#+RESULTS:
+[[file:img/uml.png]]
