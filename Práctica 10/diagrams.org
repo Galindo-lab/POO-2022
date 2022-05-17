@@ -1,0 +1,48 @@
+#+begin_src plantuml :file img/uml.png :exports results
+!theme plain
+skinparam classAttributeIconSize 0
+
+
+abstract Animal {
+    + dormir() : void
+    + comer() : void
+    + toString() : String
+}
+
+Class Gato {
+    + dormir() : void 
+    + toString() : String 
+}
+
+Class Perro {
+    + ladrar() : void
+    + toString() : String 
+}
+
+Class Zoo {
+    - animales : Vector<Animal>
+    - vet ; Veterinario
+    + Zoo(Veterinario foo) : Zoo
+    + addAnimal(Animal foo) : void
+    + removeAnimal(Animal foo) : void
+    + listAnimals() : void
+    + atenderAnimales() : void
+}
+
+Class Veterinario {
+    - nombre : String;
+    + Veterinario(String nombre) : Veterinario
+    + curar(Animal a) : void
+}
+
+
+Animal <|-- Perro
+Animal <|-- Gato 
+
+Zoo --> Veterinario
+Zoo --> Animal
+
+#+end_src
+
+#+RESULTS:
+[[file:img/uml.png]]

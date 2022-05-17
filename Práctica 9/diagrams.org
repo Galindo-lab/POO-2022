@@ -1,0 +1,98 @@
+#+begin_src plantuml :file img/uml.png :exports results
+!theme plain
+skinparam classAttributeIconSize 0
+
+
+
+interface Cocinable {
+    + usar() : boolean
+    + disponible() : boolean
+}
+
+
+class Ingrediente {
+    - cantidad : int
+    - nombre : String
+    + usar() : boolean
+    + disponible() : boolean
+}
+
+
+class Receta {
+    + UNDEFINED = 0 : static int
+    + DESAYUNO = 1 : static int
+    + COMIDA = 2 : static int 
+    + CENA = 3 : static int 
+    + receta : Map<String, Integer> 
+    - tipo_de_comida : int;
+    + Receta(int tipo)  : Receta
+    + addIngrediente(ingrediente) : void
+    + getTipo_de_comida() : int
+    + setTipo_de_comida(int tipo_de_comida) : void
+}
+
+interface MinirobotIntrface {
+    + batería_restante() : void
+    + nombre() : void
+    + identificación() : void
+    + Accion(int disponible) : boolean
+}
+
+
+abstract MiniRobot {
+    - bateria : int
+    - nombre : String 
+    - id : String 
+    + Accion(Ingrediente disponible) : boolean
+    + batería_restante() : void
+    + nombre() : void
+    + identificación() : void
+    
+}
+
+class Cortador {
+    + action(Ingrediente disponible) : void
+}
+
+class Calentador {
+    + UNDEFINED = 0 : static int
+    + DESAYUNO = 1 : static int
+    + COMIDA = 2 : static int
+    + CENA = 3 : static int 
+    - type : final int
+    + Accion(Ingrediente disponible) : boolean
+}
+
+class MagnumOpus {
+    - inventario : Map<String, Integer>
+    - Calentador : Vector<Cortador> 
+    - cortador : Cortador 
+
+    + MagnumOpus() : MagnumOpus
+    + cocinar(Receta receta) : void
+    + cocinable(Receta receta) : boolean 
+    + cortar_carne() : void
+    + picar_verduras() : void
+    + cocinar_guiso() : void 
+}
+
+
+
+
+
+
+
+Cocinable <|.. Ingrediente
+Ingrediente <|-- Receta
+MinirobotIntrface <|.. MiniRobot
+MiniRobot <|-- Cortador
+MiniRobot <|-- Calentador
+
+MagnumOpus --> Receta
+MagnumOpus --> Cortador
+MagnumOpus --> Calentador
+
+#+end_src
+
+#+RESULTS:
+[[file:img/uml.png]]

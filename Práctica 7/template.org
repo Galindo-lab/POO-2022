@@ -21,6 +21,9 @@
 - Haga un programa para probar sus clases. Tenga en cuenta que las subclases pueden usar tanto sus propios métodos cómo los métodos de su superclase.
 - Realiza el diagrama de clases de la solución que implementaste a este problema.
 
+** Repo
+https://github.com/Galindo-lab/POO-2022/tree/main/Pr%C3%A1ctica%207
+
 \pagebreak
 
 * Diagrama de clases

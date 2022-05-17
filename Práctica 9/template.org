@@ -1,0 +1,442 @@
+#+TITLE:    Practica 9
+#+SUBTITLE: Programación orientada a Objetos
+
+#+Author:   Luis Eduardo Galindo Amaya
+#+email:    egalindo54@uabc.edu.mx
+#+DATE:     [2022-05-03 mar]
+
+#+INCLUDE: "../0imports/portada.org" 
+#+INCLUDE: "../0imports/codigo.org" 
+#+OPTIONS: num:2
+#+TOC: nil
+
+
+* Diagrama
+[[./img/uml.png]]
+
+* Fotos 
+[[./img/aaaa.png]]
+
+#+BEGIN_CENTER
+\vfill
+Link Practica: https://github.com/Galindo-lab/POO-2022/tree/main/Pr%C3%A1ctica%209/src
+\pagebreak
+#+END_CENTER
+
+
+* Código
+#+BEGIN_SRC 
+package práctica.pkg9;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+/**
+ *
+ * @author galindo
+ */
+public class CapturaEntrada {
+
+    private static final DateFormat formato = new SimpleDateFormat("dd.MM.yyyy");
+
+    public static Date capturaDate(String msg) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(msg + "(dd.MM.yyy): ");
+        return CapturaEntrada.formato.parse(sc.nextLine());
+    }
+
+    public static String capturaString(String msg) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(msg + ": ");
+        return sc.nextLine();
+    }
+
+    public static char capturaChar(String msg) {
+        return CapturaEntrada.capturaString(msg).charAt(0);
+    }
+
+    public static int capturaInt(String msg) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(msg + ": ");
+        return sc.nextInt();
+    }
+
+    public static float capturaFloat(String msg) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(msg + ": ");
+        return sc.nextFloat();
+    }
+
+}
+
+#+END_SRC
+
+
+ #+BEGIN_SRC 
+package práctica.pkg9;
+
+import recetas.Ingrediente;
+import recetas.Receta;
+import robots.MagnumOpus;
+
+/**
+ *
+ * @author galindo
+ */
+public class Práctica9 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
+        char op;
+        MagnumOpus mo = new MagnumOpus();
+        
+        Ingrediente carne = new Ingrediente("Carne",5);
+        Ingrediente carne_cortada = new Ingrediente("Carne cortada",5);
+        Ingrediente verdura = new Ingrediente("Verdura",5);
+        Ingrediente verdura_picada = new Ingrediente("Verdura picada",5);
+        
+        Receta test = new Receta(Receta.COMIDA);
+        test.addIngrediente(carne);
+        test.addIngrediente(carne_cortada);
+        test.addIngrediente(verdura);
+        test.addIngrediente(verdura_picada );
+        
+        do {
+            
+            System.out.println(" Robot cocinero ");
+            System.out.println("");
+            System.out.println(" Test..........1");
+            System.out.println("");
+            System.out.println("------------------");
+            System.out.println(" 0. salir");
+            System.out.println("");
+            
+            op = CapturaEntrada.capturaChar("op");
+            
+            switch(op){
+                case '1':
+                    mo.cocinar(test);
+                    break;
+            }
+            
+        } while(op != '0');
+    }
+    
+}
+ 
+ #+END_SRC
+
+#+BEGIN_SRC 
+ */
+package recetas;
+
+/**
+ * Si se eredan las caracteristicas de Cocinable significa que los objetos 
+ pueden ser utiliazdos por opus
+ * @author galindo
+ */
+public interface Cocinable {
+    
+    public abstract boolean usar();
+    public abstract boolean disponible();
+}
+
+#+END_SRC
+
+#+BEGIN_SRC 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package recetas;
+
+/**
+ *
+ * @author galindo
+ */
+public class Ingrediente implements Cocinable {
+
+    private int cantidad;
+    private String nombre;
+
+    public Ingrediente(String nombre, int cantidad) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public boolean usar() {
+        if (!this.disponible()) {
+            return false;
+        }
+
+        this.cantidad--;
+        return true;
+    }
+
+    @Override
+    public boolean disponible() {
+        return this.cantidad > 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingrediente{" + "cantidad=" + cantidad + ", nombre=" + nombre + '}';
+    }
+
+}
+
+#+END_SRC
+
+
+#+BEGIN_SRC 
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package recetas;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+
+/**
+ *
+ * @author galindo
+ */
+public class Receta {
+
+    public static int UNDEFINED = 0;
+    public static int DESAYUNO = 1;
+    public static int COMIDA = 2;
+    public static int CENA = 3;
+
+    
+    public Map<String, Integer> receta = new HashMap<>();
+    private int tipo_de_comida;
+
+    public Receta(int tipo) {
+        this.tipo_de_comida = tipo;
+    }
+    
+    public void addIngrediente(Ingrediente ingrediente) {
+        receta.put(ingrediente.getNombre(), ingrediente.getCantidad());
+    }
+    
+    public void setReceta(Map<String, Integer> receta) {
+        this.receta = receta;
+    }
+
+    public int getTipo_de_comida() {
+        return tipo_de_comida;
+    }
+
+    public void setTipo_de_comida(int tipo_de_comida) {
+        this.tipo_de_comida = tipo_de_comida;
+    }
+    
+    
+
+    
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package robots;
+
+/**
+ *
+ * @author galindo
+ */
+public class Calentador extends MiniRobot {
+    
+    static int UNDEFINED = 0;
+    static int DESAYUNO = 1;
+    static int COMIDA = 2;
+    static int CENA = 3;
+
+    private final int type;
+    
+    public Calentador(int type) {
+        this.type = type;
+    }
+
+    @Override
+    public boolean Accion(int disponible) {
+        if( disponible <= 0 ) {
+            return false;
+        }
+        
+        System.out.println("Cocinado!!");
+        return true;
+    }
+
+#+END_SRC
+
+
+#+BEGIN_SRC 
+package robots;
+
+/**
+ *
+ * @author galindo
+ */
+public class Cortador extends MiniRobot {
+
+    public Cortador() {
+        
+    }
+    
+    @Override
+    public boolean Accion(int disponible) {
+        if( disponible <= 0 ) {
+            return false;
+        }
+        
+        System.out.println("Cortado!!");
+        return true;
+    }
+}
+
+#+END_SRC
+
+#+BEGIN_SRC 
+package robots;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Vector;
+import recetas.Receta;
+
+/**
+ *
+ * @author galindo
+ */
+public class MagnumOpus {
+
+    private Map<String, Integer> inventario = new HashMap<>();
+    private Vector<Cortador> Calentador = new Vector();
+    private Cortador cortador = new Cortador();
+
+    public MagnumOpus() {
+        inventario.put("Carne", 10);
+        inventario.put("Carne cortada", 10);
+        inventario.put("Verdura", 10);
+        inventario.put("Verdura picada", 10);
+        inventario.put("Guiso", 10);
+    }
+
+    public void cocinar(Receta receta) {
+        if (this.cocinable(receta)) {
+            for (Map.Entry<String, Integer> entry : receta.receta.entrySet()) {
+                inventario.put(entry.getKey(), inventario.get(entry.getKey()) - 1);
+                System.out.println(entry.getKey() + " = " + inventario.get(entry.getKey()));
+            }
+            
+            this.cortar_carne();
+            this.picar_verduras();
+            this.cocinar_guiso();
+        }
+    }
+
+    boolean cocinable(Receta receta) {
+        for (Map.Entry<String, Integer> entry : receta.receta.entrySet()) {
+            if (this.inventario.get(entry.getKey()) <= 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void cortar_carne() {
+        System.out.println("Carne cortada!!!");
+    }
+
+    void picar_verduras() {
+        System.out.println("Verduras picadas!!");
+    }
+
+    void cocinar_guiso() {
+        System.out.println("cocinado!!!");
+    }
+}
+
+#+END_SRC
+
+#+BEGIN_SRC 
+package robots;
+
+/**
+ *
+ * @author galindo
+ */
+public class MiniRobot implements MinirobotIntrface {
+    
+    int bateria;
+    String nombre;
+    String id;
+
+    @Override
+    public boolean Accion(int disponible) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    @Override
+    public void batería_restante() {
+        System.out.println(this.bateria);
+    }
+
+    @Override
+    public void nombre() {
+        System.out.println(this.nombre);
+    }
+
+    @Override
+    public void identificación() {
+        System.out.println(this.id);
+    }
+    
+}
+
+#+END_SRC
+
+#+BEGIN_SRC
+package robots;
+
+/**
+ *
+ * @author galindo
+ */
+public interface MinirobotIntrface {
+    
+    public abstract boolean Accion(int disponible);
+    public abstract void batería_restante();
+    public abstract void nombre();
+    public abstract void identificación();
+}
+
+#+END_SRC

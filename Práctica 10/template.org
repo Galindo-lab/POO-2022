@@ -1,0 +1,203 @@
+#+TITLE:    Practica 10
+#+SUBTITLE: Programación orientada a Objetos
+
+#+Author:   Luis Eduardo Galindo Amaya
+#+email:    egalindo54@uabc.edu.mx
+#+DATE:     [2022-05-17 mar]
+
+#+INCLUDE: "../0imports/portada.org" 
+#+INCLUDE: "../0imports/codigo.org" 
+#+OPTIONS: num:2
+#+TOC: nil
+
+
+* Diagrama
+[[./img/uml.png]]
+
+* Fotos 
+[[./img/aaaa.png]]
+
+#+BEGIN_CENTER
+\vfill
+Link Practica: https://github.com/Galindo-lab/POO-2022/tree/main/Pr%C3%A1ctica%209/src
+\pagebreak
+#+END_CENTER
+
+* Código
+#+BEGIN_SRC 
+package practica.pkg10;
+
+/**
+ *
+ * @author galindo
+ */
+public abstract class Animal {
+    
+    public void dormir() {
+        System.out.println("ZZZZZZZZZZZZZZZ");
+    }
+    
+    public void comer() {
+        System.out.println("Ñom ñom");
+    }
+
+    @Override
+    public String toString() {
+        return "Animal";
+    }
+    
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package practica.pkg10;
+
+/**
+ *
+ * @author galindo
+ */
+public class Gato extends Animal {
+
+    @Override
+    public void dormir() {
+        System.out.println("prrrrrrrrrrrrr");
+    }
+
+    @Override
+    public String toString() {
+        return "Gato";
+    }
+    
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package practica.pkg10;
+
+/**
+ *
+ * @author galindo
+ */
+public class Gato extends Animal {
+    
+    @Override
+    public void dormir() {
+        System.out.println("prrrrrrrrrrrrr");
+    }
+
+    @Override
+    public String toString() {
+        return "Gato";
+    }
+    
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package practica.pkg10;
+
+/**
+ *
+ * @author galindo
+ */
+public class Perro extends Animal {
+    public void ladrar() {
+        System.out.println("bark");
+    }
+
+    @Override
+    public String toString() {
+        return "Perro";
+    }
+       
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package practica.pkg10;
+
+/**
+ *
+ * @author galindo
+ */
+public class Veterinario {
+    String nombre;
+
+    public Veterinario(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public void curar(Animal a) {
+        System.out.println(a.toString() + " Curado");
+    }
+    
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package practica.pkg10;
+
+/**
+ *
+ * @author galindo
+ */
+public class Practica10 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Veterinario vet = new Veterinario("Carlos");
+        
+        Zoo zoologico = new Zoo(vet);
+        
+        Gato gato = new Gato();
+        Perro perro = new Perro();
+        
+        zoologico.addAnimal(gato);
+        zoologico.addAnimal(perro);
+        
+        zoologico.listAnimals();   
+    }
+}
+#+END_SRC
+
+#+BEGIN_SRC 
+package practica.pkg10;
+
+import java.util.Vector;
+
+/**
+ *
+ * @author galindo
+ */
+public class Zoo {
+    private Vector<Animal> animales = new Vector<>();
+    Veterinario vet;
+    
+    public Zoo(Veterinario foo) {
+        this.vet = foo;
+    }
+    
+    public void addAnimal(Animal foo) {
+        animales.add(foo);
+    }
+    
+    public void removeAnimal(Animal foo) {
+        animales.remove(foo);
+    }
+    
+    public void listAnimals() {
+        for(Animal animal : animales) {
+            System.out.println(animal.toString());
+        }
+    }
+    
+    public void atenderAnimales() {
+        for(Animal animal : animales) {
+            vet.curar(animal);
+        }
+    }
+    
+}
+#+END_SRC
