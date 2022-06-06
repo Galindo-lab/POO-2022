@@ -68,7 +68,11 @@ class Board():
         # quiz time
         self.quiz_time = False
 
+        # preguntas
         self.questions = Questions()
+
+        # ganador
+        self.winner = None
         
         self.cells = []
          # inicializar Celdas
@@ -131,20 +135,28 @@ class Board():
 
     def draw_ui(self, display):
 
-        if(self.quiz_time):
+        if(self.winner != None):
+            self.display_text(
+                display,
+                "EL JUGADOR " + str(self.winner+1) + " GANA",
+                30,
+                40
+            )
+
+        if(self.quiz_time and self.winner == None):
             self.display_text(
                 display,
                 self.questions.get_pregunta(),
-                0,
-                0
+                30,
+                40
             )
 
             for i,v in enumerate(self.questions.get_alternativas()):
                 self.display_text(
                     display,
                     str(i+1) + ") " + v,
-                    0,
-                    (i+1) * 20
+                    50,
+                    (i+1) * 20 + 60
                 )
         
         
@@ -200,7 +212,7 @@ class Board():
     
     def quiz_event(self):
         foo = self.current_player_position()
-        return foo in Board.SERPIENTES or foo in Board.ESCALERAS
+        return foo in Board.ESCALERAS
         
 
 
@@ -215,42 +227,40 @@ class Board():
             
             
     def update(self, dt):      
-        # Controles del juego, presiona espacio para lanzar el dado 
+        # Controles del juego, presiona espacio para lanzar el dado
+        player = self.get_player()
+        position = self.current_player_position()
         keys = pygame.key.get_pressed()
         
         if(keys[pygame.K_SPACE] and not self.quiz_time):
+            pygame.time.wait(500)
             self.playerTurn( randint(1,3) )
             self.quiz_time = self.quiz_event()
             if not self.quiz_time: self.next_turn()
-            
+           
 
         if( self.quiz_time ):
-            player = self.get_player()
-            position = self.current_player_position()
+            
             respuesta = -1
 
             if(keys[pygame.K_1]): respuesta = 0
             elif(keys[pygame.K_2]): respuesta = 1
             elif(keys[pygame.K_3]): respuesta = 2
             elif(keys[pygame.K_4]): respuesta = 3
-            
-            if(  position in Board.SERPIENTES and
-                 self.questions.check(respuesta) and
-                 respuesta != -1):
                 
-                print("SERPIENTE!! tiempo para quiz")
-                player.moveTo(self.getCell(Board.SERPIENTES.get(position)))
-                self.quiz_time = False
-                self.next_turn()
-                
-            elif(position in Board.ESCALERAS and
+            if(position in Board.ESCALERAS and
                  self.questions.check(respuesta) and
                  respuesta != -1):
                 
                 print("ESCALERA!! tiempo para quiz")
                 player.moveTo(self.getCell(Board.ESCALERAS.get(position)))
                 self.quiz_time = False
+                self.questions.numero_pregunta += 1
                 self.next_turn()
+
+        if(position in Board.SERPIENTES):        
+                print("SERPIENTE!! tiempo para quiz")
+                player.moveTo(self.getCell(Board.SERPIENTES.get(position)))
 
 
 
@@ -289,6 +299,7 @@ class Board():
        if( currentCell + cells >= Board.N_CELLS ):
            # movel a la ultima celda
            player.moveTo(self.lastCell())
+           self.winner = self.turn
        else:
            player.moveTo(self.getCell(currentCell + cells))
        

@@ -6,10 +6,24 @@ class Questions():
 
     QUESTIONS = [
         {
-            "pregunta": "5 * 2",
-            "respuesta": "10",
+            "pregunta": "¿Como se representa el oro en la tabla periodica?",
+            "respuesta": "AU",
             "alternativas": [
-                "7","45","2","10"
+                "OR", "OS", "AT", "AU"
+            ]
+        },
+        {
+            "pregunta": "¿Como se representa el hidrogeno en la tabla periodica?",
+            "respuesta": "H",
+            "alternativas": [
+                 "O", "Hg", "He", "H"
+            ]
+        },
+        {
+            "pregunta": "¿Como se representa el hierro en la tabla periodica?",
+            "respuesta": "Fe",
+            "alternativas": [
+                "Fe", "He", "Na", "H"
             ]
         },
         {
@@ -20,12 +34,47 @@ class Questions():
             ]
         },
         {
-            "pregunta": "5 * 2",
-            "respuesta": "10",
+            "pregunta": "10 * 3",
+            "respuesta": "30",
             "alternativas": [
-                "7","45","2","10"
+                "13","7","26","30"
             ]
         },
+        {
+            "pregunta": "25+16",
+            "respuesta": "41",
+            "alternativas": [
+                "41","467","43","60"
+            ]
+        },
+        {
+            "pregunta": "250 + 465",
+            "respuesta": "715",
+            "alternativas": [
+                "100","86","4","715"
+            ]
+        },
+        {
+            "pregunta": "19-7",
+            "respuesta": "12",
+            "alternativas": [
+                "12","13","11","10"
+            ]
+        },
+        {
+            "pregunta": "¿Cual es el estado de agregacion del sol?",
+            "respuesta": "Plasma",
+            "alternativas": [
+                "Plasma","Solido","Liquido","Gas"
+            ]
+        },
+        {
+            "pregunta": "¿Cual es el estado de agregacion del butano?",
+            "respuesta": "Gas",
+            "alternativas": [
+                "Solido","Gas","Plasma","Liquido"
+            ]
+        }
     ]
     
     def __init__(self):
