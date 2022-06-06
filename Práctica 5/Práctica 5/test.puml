@@ -1,0 +1,21 @@
+@startuml
+annotation java.lang.Override
+class banco.cuenta.Cuenta
+class banco.cuenta.Usuario
+class java.text.DateFormat
+class java.text.ParseException
+class java.text.SimpleDateFormat
+class java.util.Date
+class java.util.Scanner
+banco.cuenta.Cuenta ..> java.lang.Override
+banco.cuenta.Cuenta ..> java.text.DateFormat
+banco.cuenta.Cuenta ..> java.text.ParseException
+banco.cuenta.Cuenta ..> java.text.SimpleDateFormat
+banco.cuenta.Cuenta ..> java.util.Date
+banco.cuenta.Cuenta ..> java.util.Scanner
+banco.cuenta.Usuario ..> java.lang.Override
+banco.cuenta.Usuario ..> java.text.DateFormat
+banco.cuenta.Usuario ..> java.text.ParseException
+banco.cuenta.Usuario ..> java.text.SimpleDateFormat
+banco.cuenta.Usuario ..> java.util.Date
+@enduml

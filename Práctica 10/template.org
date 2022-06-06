@@ -19,7 +19,7 @@
 
 #+BEGIN_CENTER
 \vfill
-Link Practica: https://github.com/Galindo-lab/POO-2022/tree/main/Pr%C3%A1ctica%209/src
+Link Practica: https://github.com/Galindo-lab/POO-2022/tree/main/Práctica%2010
 \pagebreak
 #+END_CENTER
 

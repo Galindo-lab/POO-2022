@@ -33,13 +33,12 @@ public class Registro {
     public void add(Alumno e) {
         this.registros.add(e);
     }
-    
-    // https://stackoverflow.com/a/17297082
 
+    // https://stackoverflow.com/a/17297082
     public void save() {
         try {
             FileOutputStream fout = new FileOutputStream(FILE, true);
-            try (ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+            try ( ObjectOutputStream oos = new ObjectOutputStream(fout)) {
                 for (Alumno foo : this.registros) {
                     oos.writeObject(foo);
                 }
@@ -53,15 +52,17 @@ public class Registro {
     public void load() {
         try {
             FileInputStream streamIn = new FileInputStream(FILE);
-            try (ObjectInputStream objectinputstream = new ObjectInputStream(streamIn)) {
+            try ( ObjectInputStream objectinputstream = new ObjectInputStream(streamIn)) {
                 while (true) {
                     var foo = objectinputstream.readObject();
                     Alumno readCase = (Alumno) foo;
-                    
-                    if (readCase == null) {break;}
-                    
+
+                    if (readCase == null) {
+                        break;
+                    }
+
                     registros.add(readCase);
-                    
+
                 }
             }
 

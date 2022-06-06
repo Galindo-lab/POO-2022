@@ -1,0 +1,254 @@
+#+TITLE:    Practica 11
+#+SUBTITLE: Programación Orientada a Objetos
+
+#+Author:   Luis Eduardo Galindo Amaya
+#+email:    egalindo54@uabc.edu.mx
+#+DATE:     [2022-05-17 mar]
+
+#+INCLUDE: "../0imports/portada.org" 
+#+INCLUDE: "../0imports/codigo.org" 
+#+OPTIONS: num:2
+#+TOC: nil
+
+* Fotos
+[[./aaaa.png]]
+
+#+BEGIN_CENTER
+\vfill
+Link Practica: https://github.com/Galindo-lab/POO-2022/tree/main/Práctica%2011/Práctica11/src/práctica11
+\pagebreak
+#+END_CENTER
+
+* Código
+** Main
+#+BEGIN_SRC
+package práctica11;
+
+import práctica11.Alumno.Alumno;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import práctica11.Alumno.Registro;
+
+public class Práctica11 {
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        int[] intArray = new int[]{1, 2, 3, 4, 5, 6, 7};        
+        
+        Registro registros = new Registro();
+        Registro registros2 = new Registro();
+
+        Alumno a = new Alumno("Juan0", "12312", intArray);
+        Alumno b = new Alumno("Juan1", "12312", intArray);
+        Alumno c = new Alumno("Juan2", "12312", intArray);
+
+        registros.add(a);
+        registros.add(b);
+        registros.add(c);
+        
+        registros.save();
+        
+        registros2.load();
+        registros2.showRegistos();
+    }
+
+}
+#+END_SRC
+
+** Alumno.Alumno.java
+#+BEGIN_SRC
+package práctica11.Alumno;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
+
+public class Registro {
+
+    private Vector<Alumno> registros = new Vector<>();
+    private static final String FILE = "output.es";
+
+    public Registro() {
+
+    }
+
+    public void showRegistos() {
+        for (Alumno foo : this.registros) {
+            System.out.println(foo.toString());
+        }
+    }
+
+    public void add(Alumno e) {
+        this.registros.add(e);
+    }
+
+    // https://stackoverflow.com/a/17297082
+    public void save() {
+        try {
+            FileOutputStream fout = new FileOutputStream(FILE, true);
+            try ( ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+                for (Alumno foo : this.registros) {
+                    oos.writeObject(foo);
+                }
+            }
+
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+    public void load() {
+        try {
+            FileInputStream streamIn = new FileInputStream(FILE);
+            try ( ObjectInputStream objectinputstream = new ObjectInputStream(streamIn)) {
+                while (true) {
+                    var foo = objectinputstream.readObject();
+                    Alumno readCase = (Alumno) foo;
+
+                    if (readCase == null) {
+                        break;
+                    }
+
+                    registros.add(readCase);
+
+                }
+            }
+
+        } catch (ClassNotFoundException | IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+}
+#+END_SRC
+
+** Alumno.Calificaciones.java
+#+BEGIN_SRC 
+package práctica11.Alumno;
+
+import java.io.Serializable;
+import java.util.Arrays;
+
+public class Calificaciones implements Serializable  {
+
+    private final int[] arr = new int[7];
+    public static final int length = 7;
+
+    public Calificaciones() {
+        this.zeros();
+    }
+
+    void set(int i, int value) {
+        this.arr[i] = value;
+    }
+    
+    void set(int[] arr) {
+        for (int i = 0; i < Calificaciones.length; i++) {
+            this.set(i, arr[i]);
+        }
+    }
+
+    public int get(int i) {
+        return arr[i];
+    }
+
+    public void zeros() {
+        for (int i = 0; i < Calificaciones.length; i++) {
+            this.set(i, 0);
+        }
+    }
+    
+    public int sum() {
+        int foo = 0;
+        for (int i = 0; i < Calificaciones.length; i++) {
+            foo += this.get(i);
+        }
+        return foo;
+    }
+
+    public float promedio() {
+        return (float) this.sum() / Calificaciones.length;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(arr) ;
+    }
+
+}
+#+END_SRC
+** Alumno.Registro.java
+#+BEGIN_SRC 
+package práctica11.Alumno;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
+
+/**
+ *
+ * @author galindo
+ */
+public class Registro {
+
+    private Vector<Alumno> registros = new Vector<>();
+    private static final String FILE = "output.es";
+
+    public Registro() {
+
+    }
+
+    public void showRegistos() {
+        for (Alumno foo : this.registros) {
+            System.out.println(foo.toString());
+        }
+    }
+
+    public void add(Alumno e) {
+        this.registros.add(e);
+    }
+
+    // https://stackoverflow.com/a/17297082
+    public void save() {
+        try {
+            FileOutputStream fout = new FileOutputStream(FILE, true);
+            try ( ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+                for (Alumno foo : this.registros) {
+                    oos.writeObject(foo);
+                }
+            }
+
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
+    public void load() {
+        try {
+            FileInputStream streamIn = new FileInputStream(FILE);
+            try ( ObjectInputStream objectinputstream = new ObjectInputStream(streamIn)) {
+                while (true) {
+                    var foo = objectinputstream.readObject();
+                    Alumno readCase = (Alumno) foo;
+
+                    if (readCase == null) {
+                        break;
+                    }
+
+                    registros.add(readCase);
+
+                }
+            }
+
+        } catch (ClassNotFoundException | IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+
+}
+#+END_SRC
